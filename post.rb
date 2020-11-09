@@ -1,4 +1,12 @@
 class Post
+  def self.post_types
+    [Memo, Link, Task]
+  end
+
+  def self.create(type_index)
+    post_types[type_index].new
+  end
+
   def initialize
     @created_at = Time.now
     @text = nil
@@ -15,7 +23,7 @@ class Post
   def save
     file = File.new(file_path, "w:UTF-8")
 
-    strings.each do |string|
+    for string in to_strings do
       file.puts(string)
     end
 
